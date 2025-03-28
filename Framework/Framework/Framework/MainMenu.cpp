@@ -19,5 +19,9 @@ void MenuScene::Update()
 
 void MenuScene::Render()
 {
-	std::cout << "Press 1 for Ranking and 2 for Gameplay";
+	std::cout << " _____                 _           _   \n";
+	std::cout << "| __  |___ ___ ___ ___| |_ ___ _ _| |_ \n";
+	std::cout << "| __ -|  _| -_| .'|  _| '_| . | | |  _|\n";
+	std::cout << "|_____|_| |___|__,|___|_,_|___|___|_|  \n";
+	std::cout << "\nPress 1 for Ranking and 2 for Gameplay\n";
 }
