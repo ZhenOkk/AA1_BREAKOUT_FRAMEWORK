@@ -5,7 +5,7 @@ Vector2 Ball::CalculateCollision( GameObject* other)
 	int vertical = 0;
 	int horizontal = 0;
 
-	for ( int i=0;i < objects.size();i++) {
+	for ( int i=0;i < objects.size(); i++) {
 		//Check verticals
 		bool top = (other->GetPosition() + Vector2(0, -1)) == objects[i]->GetPosition();
 		bool bottom = (other->GetPosition() + Vector2(0, 1)) == objects[i]->GetPosition();
@@ -24,7 +24,6 @@ Vector2 Ball::CalculateCollision( GameObject* other)
 		vertical = rand() % 2 > 0;
 		horizontal = rand() % 2 > 0;
 	}
-
 	if (vertical >= horizontal)
 		outDir.x = -outDir.x;
 	if (horizontal > vertical)
@@ -39,8 +38,12 @@ void Ball::Update()
 	position = position + direction;
 	//2 -> Col·lisió
 		//Parets
+
 		//Bricks
+	
 		//Pad
+	
+
 	for (GameObject* go : objects) {
 		if (go == this) {
 			continue;
@@ -51,7 +54,17 @@ void Ball::Update()
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
 				direction = CalculateCollision(go);
 			}
+			//Check if this is a pad
+			if (Pad* p = dynamic_cast<Pad*>(go)) {
+				for (int i = 1; i <= p->GetWidth(); i++) {
+					direction = CalculateCollision(go);
+				}
+			}
+			//Check if this is a brick
+			if (Brick* b = dynamic_cast<Brick*>(go)) {
+				b->Destroy();
+				direction = CalculateCollision(go);
+			}
 		}
-
 	}
 }
