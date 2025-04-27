@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Scenes">
-      <UniqueIdentifier>{837bf196-bda9-4d9d-95cf-562565b1cd75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{2dd62600-d2ad-430a-acea-4fce5c706dcd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{9b801f1e-d9e0-42d5-83e1-1ce42a26f525}</UniqueIdentifier>
     </Filter>
@@ -33,19 +27,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConsoleControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Pad.cpp">
@@ -54,25 +42,19 @@
     <ClCompile Include="Ball.cpp">
       <Filter>Source Files\Objects\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="RankingScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Objects\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="CreditsScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Objects\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleControl.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayScene.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
       <Filter>Header Files\Objects\Gameplay</Filter>
@@ -83,10 +65,7 @@
     <ClInclude Include="Pad.h">
       <Filter>Header Files\Objects\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="RankingScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
@@ -94,9 +73,6 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Header Files\Objects\Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="CreditsScene.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,70 +1,110 @@
 #include "Ball.h"
 
-Vector2 Ball::CalculateCollision( GameObject* other)
+Ball::Ball()
 {
-	int vertical = 0;
-	int horizontal = 0;
-
-	for ( int i=0;i < objects.size(); i++) {
-		//Check verticals
-		bool top = (other->GetPosition() + Vector2(0, -1)) == objects[i]->GetPosition();
-		bool bottom = (other->GetPosition() + Vector2(0, 1)) == objects[i]->GetPosition();
-		vertical += (int)top + (int)bottom;
-
-		//Check horizontals
-		bool left = (other->GetPosition() + Vector2(-1, 0)) == objects[i]->GetPosition();
-		bool right = (other->GetPosition() + Vector2(1, 0)) == objects[i]->GetPosition();
-		horizontal += (int)left + (int)right;
-	}
-
-	Vector2 outDir = direction;
-
-	//isolated
-	if (vertical == 0 && horizontal == 0) {
-		vertical = rand() % 2 > 0;
-		horizontal = rand() % 2 > 0;
-	}
-	if (vertical >= horizontal)
-		outDir.x = -outDir.x;
-	if (horizontal > vertical)
-		outDir.y = -outDir.y;
-
-	return outDir;
 }
 
-void Ball::Update()
+void Ball::Bounce(Vector2 normal)
 {
-	//1 -> Moviment
-	position = position + direction;
-	//2 -> Col·lisió
-		//Parets
+}
 
-		//Bricks
-	
-		//Pad
-	
+void Ball::Update(vector<Wall> walls, vector<Brick>& bricks, Pad* pads)
+{
+	Vector2 targetPos = position + direction;
+	bool auxChange = false;
 
-	for (GameObject* go : objects) {
-		if (go == this) {
-			continue;
-		}
-		bool collision = position == go->GetPosition();
-		if (collision) {
-			//Check if this is a wall
-			if (Wall* w = dynamic_cast<Wall*>(go)) {
-				direction = CalculateCollision(go);
+	//Check walls
+	for (auto it = walls.begin(); it != walls.end(); it++)
+	{
+		if (it->GetPosition() == targetPos)
+		{
+			switch (it->GetType())
+			{
+			case HORIZONTAL:
+				direction.x *= -1;
+				break;
+			case VERTICAL:
+				direction.y *= -1;
+				break;
+			case CORNER:
+				direction.x *= -1;
+				direction.y *= -1;
+				break;
 			}
-			//Check if this is a pad
-			if (Pad* p = dynamic_cast<Pad*>(go)) {
-				for (int i = 1; i <= p->GetWidth(); i++) {
-					direction = CalculateCollision(go);
-				}
-			}
-			//Check if this is a brick
-			if (Brick* b = dynamic_cast<Brick*>(go)) {
-				b->Destroy();
-				direction = CalculateCollision(go);
-			}
+
+			auxChange = true;
 		}
 	}
+
+	if (auxChange) targetPos = position + direction;
+	auxChange = false;
+
+	// PADS checked
+
+	Vector2 padPos = pads->GetPosition();
+	int padX = padPos.x;
+	int padY = padPos.y;
+
+	if (padPos == targetPos)
+	{
+		direction.y *= -1;
+		auxChange = true;
+	}
+
+	for (int x = 1; x <= pads->GetWidth(); x++) {
+		if (padX == targetPos.x - x && padY == targetPos.y) {
+			direction.y *= -1;
+			direction.x = 1;
+			auxChange = true;
+		}
+
+		if (padX == targetPos.x + x && padY == targetPos.y) {
+			direction.y *= -1;
+			direction.x = -1;
+			auxChange = true;
+		}
+	}
+
+	if (auxChange) targetPos = position + direction;
+	auxChange = false;
+
+	// Bricks checked
+	int count;
+	int toerase;
+	bool hit;
+	bool looping = true;
+	while (looping) {
+		hit = false;
+		count = 0;
+		for (auto it = bricks.begin(); it != bricks.end(); ++it)
+		{
+			if (it->GetPosition() == targetPos)
+			{
+				direction.y *= -1;
+				hit = true;
+				auxChange = true;
+				toerase = count;
+			}
+			count++;
+		}
+		if (hit)
+			bricks.erase(bricks.begin() + toerase);
+
+		if (auxChange) targetPos = position + direction;
+		auxChange = false;
+		looping = hit;
+	}
+
+	// Life Countdown
+	if (position.y > padY) {
+		position = Vector2(position.x, position.y - 10);
+		health--;
+	}
+	position = position + direction;
+}
+
+void Ball::Render()
+{
+	ConsoleXY(position.x, position.y);
+	cout << "O";
 }

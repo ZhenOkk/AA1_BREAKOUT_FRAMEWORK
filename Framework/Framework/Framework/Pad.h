@@ -1,15 +1,22 @@
 #pragma once
-#include "GameObject.h"
-#include <Windows.h>
+#include <vector>
 
-class Pad : public GameObject {
-protected:
+#include "Vector2.h"
+#include "Wall.h"
+#include "ConsoleControl.h"
+
+class Pad {
+private:
+	Vector2 position;
 	int width;
-	int mapSize;
+	char symbol;
 public:
-	Pad(Vector2 _pos, ConsoleColor c, int w, int _mapSize)
-		:GameObject(_pos, '_', c), width(w), mapSize(_mapSize) {}
-	int GetWidth()  { return width; }
-	void Update() override;
-	void Render() override;
+	Pad();
+	Pad(int w, Vector2 pos, char c) { width = w; position = pos; symbol = c; }
+	Vector2 GetPosition() { return position; }
+	void Render();
+	void Update(int ScreenWidth);
+	void MoveLeft();
+	void MoveRight();
+	int GetWidth() { return width; }
 };

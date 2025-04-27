@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <windows.h>
 
-enum ConsoleColor { 
+enum ConsoleColor {
 	BLACK, DARKBLUE, DARKGREEN, DARKCYAN, DARKRED, DARKMAGENTA, DARKYELLOW, LIGHTGREY,
 	DARKGREY, BLUE, GREEN, CYAN, RED, MAGENTA, YELLOW, WHITE
 };

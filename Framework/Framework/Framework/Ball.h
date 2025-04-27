@@ -1,19 +1,30 @@
 #pragma once
-#include "GameObject.h"
+#include <vector>
+
+#include "ConsoleControl.h"
+#include "Vector2.h"
 #include "Wall.h"
 #include "Brick.h"
 #include "Pad.h"
 
-#include <vector>
-
-class Ball : public GameObject {
-protected:
+class Ball {
+private:
+	Vector2 position;
 	Vector2 direction;
-	std::vector<GameObject*> objects;
-
-	Vector2 CalculateCollision( GameObject* other);
+	int damage;
+	char symbol;
+	int health;
 public:
-	Ball(Vector2 _pos, ConsoleColor c, std::vector<GameObject*> _objects)
-		: GameObject(_pos, '@', c), objects(_objects), direction(Vector2(1, 1)) {}
-	void Update() override;
+	Ball();
+	Ball(Vector2 pos, Vector2 dir, int d, char c, int h)
+		: position(pos), direction(dir), damage(d), symbol(c), health(h) {
+	}
+	void Bounce(Vector2 normal);
+	void Update(vector<Wall> walls, vector<Brick>& bricks, Pad* pads);
+	void Render();
+	int GetDamage() { return damage; }
+	Vector2 GetDirection() { return direction; }
+	Vector2 GetPosition() { return position; }
+	void SetDirection(Vector2 n) { direction = n; }
+	int GetHealth() { return health; }
 };
